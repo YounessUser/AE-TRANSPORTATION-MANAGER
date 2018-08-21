@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">Departments list</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <span title="Create a new department" class="pull-right"><a href="{{ path('department_new') }}" class="btn btn-labeled btn-labeled-left bg-blue heading-btn"><b><i class="icon-plus3"></i></b> Ajouter</a></span>
+    </div>
+
+    <table class="table datatable-responsive table-bordered table-hover datatable-highlight">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for department in departments %}
+            <tr>
+                <td><a href="{{ path('department_show', { 'id': department.id }) }}">{{ department.id }}</a></td>
+                <td>{{ department.name }}</td>
+                <td class="text-center">
+                    <div class="">
+                        <a title="Afficher les détails" href="{{ path('department_show', { 'id': department.id }) }}" class="text-primary legitRipple"><i class="icon-eye position-left"></i></a>
+                        <a title="Modifier" href="{{ path('department_edit', { 'id': department.id }) }}" class="text-primary legitRipple"><i class="icon-pen position-left"></i></a>
+                        <a title="Supprimer" onclick="return confirm('Êtes-vous sûr ? Cette action est irréversible.');" href="{{ path('department_delete', { 'id': department.id }) }}" class="text-danger legitRipple"><i class="icon-trash position-left"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

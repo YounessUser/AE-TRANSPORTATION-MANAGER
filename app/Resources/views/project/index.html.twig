@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h5 class="panel-title">Projects list</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                    <li><a data-action="close"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <span title="Create a new project" class="pull-right"><a href="{{ path('project_new') }}" class="btn btn-labeled btn-labeled-left bg-blue heading-btn"><b><i class="icon-plus3"></i></b> Ajouter</a></span>
+        </div>
+
+        <table class="table datatable-responsive table-bordered table-hover datatable-highlight">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td><a href="{{ path('project_show', { 'id': project.id }) }}">{{ project.id }}</a></td>
+                    <td>{{ project.name }}</td>
+                    <td class="text-center">
+                        <div class="">
+                            <a title="Afficher les détails" href="{{ path('project_show', { 'id': project.id }) }}" class="text-primary legitRipple"><i class="icon-eye position-left"></i></a>
+                            <a title="Modifier" href="{{ path('project_edit', { 'id': project.id }) }}" class="text-primary legitRipple"><i class="icon-pen position-left"></i></a>
+                            <a title="Supprimer" onclick="return confirm('Êtes-vous sûr ? Cette action est irréversible.');" href="{{ path('project_delete', { 'id': project.id }) }}" class="text-danger legitRipple"><i class="icon-trash position-left"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

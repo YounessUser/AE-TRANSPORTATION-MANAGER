@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">Fuel Reconciliations list</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <span title="Create a new fuel de reconciliations" class="pull-right"><a href="{{ path('fuelreconciliation_new') }}" class="btn btn-labeled btn-labeled-left bg-blue heading-btn"><b><i class="icon-plus3"></i></b> Ajouter</a></span>
+    </div>
+
+    <table class="table datatable-responsive table-bordered table-hover datatable-highlight">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Datecreation</th>
+                <th>Immatricule</th>
+                <th>Drivare Name</th>
+                <th>Department</th>
+                <th>KM</th>
+
+
+                <th>Liters</th>
+                <th>Amount</th>
+                <th>Ispayed</th>
+
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fuelReconciliation in fuelReconciliations %}
+            <tr>
+                    <td><a href="{{ path('fuelreconciliation_show', { 'id': fuelReconciliation.id }) }}">{{ fuelReconciliation.id }}</a></td>
+                 <td>{% if fuelReconciliation.dateCreation %}{{ fuelReconciliation.dateCreation|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ fuelReconciliation.vehicle.mat }}</td>
+                    <td>{{ fuelReconciliation.driver.lastName }} {{ fuelReconciliation.driver.firstName }}</td>
+                    <td>{{ fuelReconciliation.department.name }}</td>
+                    <td>{{ fuelReconciliation.vehicle.kilometrage }}</td>
+                    <td>{{ fuelReconciliation.liters }}</td>
+                    <td>{{ fuelReconciliation.amount }}</td>
+                    <td><span class="label {% if fuelReconciliation.isPayed %}label-success{% else %}label-danger{% endif %}">{% if fuelReconciliation.isPayed %}Yes{% else %}No{% endif %}</span></td>
+
+            
+                <td class="text-center">
+                    <div class="">
+                        <a title="Afficher les détails" href="{{ path('fuelreconciliation_show', { 'id': fuelReconciliation.id }) }}" class="text-primary legitRipple"><i class="icon-eye position-left"></i></a>
+                        <a title="Modifier" href="{{ path('fuelreconciliation_edit', { 'id': fuelReconciliation.id }) }}" class="text-primary legitRipple"><i class="icon-pen position-left"></i></a>
+                        <a title="Supprimer" onclick="return confirm('Êtes-vous sûr ? Cette action est irréversible.');" href="{{ path('fuelreconciliation_delete', { 'id': fuelReconciliation.id }) }}" class="text-danger legitRipple"><i class="icon-trash position-left"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

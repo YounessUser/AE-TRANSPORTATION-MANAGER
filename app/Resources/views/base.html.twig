@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html >
+<head>
+    {% block metas %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock %}
+    <title>{% block title %}AE TRANSPORTATION MANAGER{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
+    <!-- Global stylesheets -->
+    {% block global_stylesheets %}
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/app/css/custom.css') }}" rel="stylesheet" type="text/css">
+    {% endblock %}
+    <style>
+        .padding-r-5 {
+            padding-right: 5px;
+        }
+        .padding-5 {
+            paddingt: 5px;
+        }
+        label.required:after {
+            content: " * ";
+            color: red;
+        }
+
+        form div[id^="appbundle"] div{
+            margin-bottom: 25px; 
+        }
+
+        form div[id^="appbundle"] div input{
+            margin-top: -12px;  
+        }
+    </style>
+    {% block stylesheets %}{% endblock %}
+    <!-- /global stylesheets -->
+</head>
+{% block body %}
+    <body {% block body_attributes %}class="navbar-top"{% endblock %}>
+
+    <!-- Main navbar -->
+    {% block navbar %}
+        {% include 'layout/_partials/navbar.html.twig' %}
+    {% endblock %}
+    <!-- /main navbar -->
+
+
+    <!-- Page container -->
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main sidebar -->
+            {% block sidebar %}
+                {% include 'layout/_partials/sidebar.html.twig' %}
+            {% endblock %}
+            <!-- /main sidebar -->
+
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <!-- Page header -->
+
+                <div class="page-header">
+                    <br>
+                </div>
+                <!-- /page header -->
+                {% block page_header %}
+                    <br>
+                {% endblock %}
+
+                <!-- Content area -->
+                <div class="content">
+
+                    {% block content %}{% endblock %}
+
+                    <!-- Footer -->
+                    {% block footer %}
+                        <div class="footer text-muted">
+                            &copy; {{ 'now'|date('Y') }}. <a href="#" target="_blank">AE TRANSPORTATION MANAGER</a>
+                        </div>
+                    {% endblock %}
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+    {% block global_javascripts %}
+
+        <!-- Core JS files -->
+        <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/pace.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/core/libraries/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/core/libraries/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/plugins/loaders/blockui.min.js') }}"></script>
+        <!-- /core JS files -->
+        <script type="text/javascript" src="{{ asset('assets/js/plugins/bootstrap_select.min.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('assets/js/plugins/form_bootstrap_select.js') }}"></script>
+
+        <script type="text/javascript" src="{{ asset('assets/js/core/app.js') }}"></script>
+
+    {% endblock %}
+    {% block javascripts %}
+
+    {% endblock %}
+
+    </body>
+
+{% endblock %}
+</html>
+

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h6 class="panel-title">Fuel Reconciliation<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+        <div class="heading-elements">
+            <a href="{{ path('fuelreconciliation_index') }}" class="btn btn-primary btn-xs "><b><i class="icon-loop3"></i></b> Retour à la liste</a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fuelReconciliation.id }}</td>
+            </tr>
+
+            <tr>
+                <th>Liters</th>
+                <td>{{ fuelReconciliation.liters }}</td>
+            </tr>
+            <tr>
+                <th>Tauxbyliter</th>
+                <td>{{ fuelReconciliation.tauxByLiter }}</td>
+            </tr>
+            <tr>
+                <th>Ispayed</th>
+                <td>{% if fuelReconciliation.isPayed %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ fuelReconciliation.amount }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{% if fuelReconciliation.dateCreation %}{{ fuelReconciliation.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Remarks</th>
+                <td>{{ fuelReconciliation.remarks }}</td>
+            </tr>
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="heading-elements pull-right">
+            <div class="col-md-12">
+                <div class="text-right">
+                    <div class="btn-group">
+                        <a class="btn btn-primary legitRipple" href="{{ path('fuelreconciliation_edit', { 'id': fuelReconciliation.id }) }}">Mettre à jour<i class="icon-rotate-cw2 position-right"></i></a>
+                        <a onclick="return confirm('Êtes-vous sûr ? Cette action est irréversible.');"  class="btn btn-danger legitRipple" href="{{ path('fuelreconciliation_delete', { 'id': fuelReconciliation.id }) }}">Supprimer <i class="icon-trash-alt position-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

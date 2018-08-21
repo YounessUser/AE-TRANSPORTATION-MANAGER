@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+
+
+        @media (min-width: 450px) {
+            body {
+                background: url("{{  asset('assets/images/background-AE.jpg')}}") 50% 0 no-repeat fixed #f7f7f7;
+                background-size: cover;
+            }
+        }
+    </style>
+{% endblock %}
+{% block navbar %}
+
+    
+
+{% endblock %}
+{% block content %}
+    <div>
+
+    </div>
+    <div>
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    </div>
+{% endblock %}
+{% block body_attributes %} class="login-container" {% endblock %}
+
+{% block sidebar %} {% endblock %}
+
+{% block footer %}
+    <div class="footer text-muted text-center">
+        &copy; {{ 'now'|date('Y') }}. <a href="#">AE TRANSPORTATION MANAGER</a>
+    </div>
+{% endblock %}

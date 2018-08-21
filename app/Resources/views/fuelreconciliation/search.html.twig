@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title">Search Reconciliation<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+            <div class="heading-elements">
+              
+            </div>
+        </div>
+        <div class="panel-body">
+            <p class="content-group-lg"></p>
+
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            <div class="form-group">
+                <div class="control-label col-lg-2 text-semibold control-label required">
+                {{ form_label(form.firstDate) }}
+                </div>
+                <div class="col-lg-4">
+                    {{ form_widget(form.firstDate, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            
+                <div class="control-label col-lg-2 text-semibold control-label required">
+                {{ form_label(form.secondDate) }}
+                </div>
+                <div class="col-lg-4">
+                    {{ form_widget(form.secondDate, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2">
+                    {{ form_label(form.department) }}
+                </div>
+                <div class="col-lg-4">
+                
+                    {{ form_widget(form.department, {'attr': {'class': 'bootstrap-select'}}) }}
+                </div>
+                <div class="col-lg-2">
+                    {{ form_label(form.driver) }}
+                </div>
+                <div class="col-lg-4">
+                
+                    {{ form_widget(form.driver, {'attr': {'class': 'bootstrap-select'}}) }}
+                </div>
+            
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2">
+                    {{ form_label(form.project) }}
+                </div>
+                <div class="col-lg-4">
+                
+                    {{ form_widget(form.project, {'attr': {'class': 'bootstrap-select'}}) }}
+                </div>
+                <div class="col-lg-2">
+                    {{ form_label(form.vehicle) }}
+                </div>
+                <div class="col-lg-4">
+                
+                    {{ form_widget(form.vehicle, {'attr': {'class': 'bootstrap-select'}}) }}
+                </div>
+           </div>
+
+            <br />
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary legitRipple">Envoyer <i class="icon-arrow-right14 position-right"></i></button>
+
+
+            </div>
+
+        
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">Search Results</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <span title="Create a new fuel de reconciliations" class="pull-right"><a href="{{ path('fuelreconciliation_new') }}" class="btn btn-labeled btn-labeled-left bg-blue heading-btn"><b><i class="icon-plus3"></i></b> Ajouter</a></span>
+    </div>
+
+    <table class="table datatable-responsive table-bordered table-hover datatable-highlight">
+        <thead>
+            <tr>
+                <th>Datecreation</th>
+                <th>Id</th>
+                <th>Immatricule</th>
+                <th>Drivare Name</th>
+                <th>Department</th>
+                <th>KM</th>
+                <th>Liters</th>
+                <th>Amount</th>
+                <th>Ispayed</th>
+                <th>Vehicle Type</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set index = 0 %}
+            {% for fuelReconciliation in list %}
+
+                <tr>
+                    <td>{% if fuelReconciliation.dateCreation %}{{ fuelReconciliation.dateCreation|date('Y-m-d') }}{% endif %}</td>
+                    <td><a href="{{ path('fuelreconciliation_show', { 'id': fuelReconciliation.id }) }}">{{ fuelReconciliation.id }}</a></td>
+                    <td>{{ fuelReconciliation.vehicle.mat }}</td>
+                    <td>{{ fuelReconciliation.driver.lastName }} {{ fuelReconciliation.driver.firstName }}</td>
+                    <td>{{ fuelReconciliation.department.name }}</td>
+                    <td>{{ fuelReconciliation.vehicle.kilometrage }}</td>
+                    <td>{{ fuelReconciliation.liters }}</td>
+                    <td>{{ fuelReconciliation.amount }}</td>
+                    <td><span class="label {% if fuelReconciliation.isPayed %}label-success{% else %}label-danger{% endif %}">{% if fuelReconciliation.isPayed %}Yes{% else %}No{% endif %}</span></td>
+                    <td>{{ fuelReconciliation.vehicle.type }}</td>
+                    <td>{{ fuelReconciliation.remarks }}</td>
+                    
+                    
+                </tr>
+               
+                
+                    {% for subTotal in subTotals %}
+                    
+                        {% if fuelReconciliation.driver.lastName == subTotal.lastName 
+                            and fuelReconciliation.driver.firstName == subTotal.firstName 
+                            and list[index+1] is defined
+                            and list[index+1].driver.lastName != subTotal.lastName %}
+                            
+                            <tr style="background-color: #AAA">
+                                <td colspan="6" class="text-center">SUB TOTAL</td>
+                                <td>{{subTotal.totalLiters}}</td>
+                                <td>{{subTotal.totalAmount}}</td>
+                                <td colspan="4"></td>
+
+                            </tr>
+                            <tr><td colspan="12"> </td></tr>
+
+
+                        {% endif %}
+                    
+                    {% endfor %}
+                    {% if (index+1) == list|length %}
+                        {% set lastEle = subTotals|last %}
+                            <tr style="background-color: #AAA">
+                                <td colspan="6" class="text-center">SUB TOTAL</td>
+                                <td>{{lastEle.totalLiters}}</td>
+                                <td>{{lastEle.totalAmount}}</td>
+                                <td colspan="4"></td>
+
+                            </tr>
+                            <tr><td colspan="12"> </td></tr>
+                            <tr style="background-color: pink">
+                                <td colspan="8" class="text-center">TOTAL</td>
+                                <td colspan="4">{{total['0']['totalAmount']}}
+                                </td>
+
+                            </tr>
+                    {% endif %}
+                {% set index = index+1 %}
+            {% endfor %}
+        
+
+        </tbody>
+        
+    </table>
+
+        <div class="panel-body">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success legitRipple">Export Excel <i class="icon-file-excel position-left"></i></button>
+                <button type="submit" class="btn btn-danger legitRipple">Export PDF <i class="icon-file-pdf position-left"></i></button>
+
+
+            </div>
+        </div>
+</div>
+{% endblock %}
